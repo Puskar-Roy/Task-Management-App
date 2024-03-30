@@ -9,7 +9,7 @@ export default function Layout() {
   return (
     <Provider store={store}>
       <View className="flex flex-row h-screen">
-        <StatusBar style="auto" backgroundColor="#60A5FA" />
+        <StatusBar style="auto" backgroundColor="#667eea" />
         <Sidebar />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />

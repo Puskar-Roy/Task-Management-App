@@ -1,31 +1,57 @@
-import { View, Text, TextInput , TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
+import { addTask } from "../../store/taskSlice";
+import { useDispatch } from "react-redux";
+
 const addTasks = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const [show, setShow] = useState(false);
-    const [mode, setMode] = useState("date");
-    
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [mode, setMode] = useState("date");
+
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
   const handleStatusChange = (value) => setStatusFilter(value);
   const handlePriorityChange = (value) => setPriorityFilter(value);
-    const showMode = (currentMode) => {
-      setShow(true);
-      setMode(currentMode);
-    };
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-    const onChange = (event, selectedDate) => {
-      if (mode === "stdate") {
-        setStartDate(selectedDate);
-      } else if (mode === "endate") {
-        setEndDate(selectedDate);
-      }
-      setShow(false);
+  const onChange = (event, selectedDate) => {
+    if (mode === "stdate") {
+      setStartDate(selectedDate);
+    } else if (mode === "endate") {
+      setEndDate(selectedDate);
+    }
+    setShow(false);
+  };
+
+  const submitForm = () => {
+    const formdata = {
+      title: title,
+      description: desc,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      status: statusFilter,
+      assignee: "Puskar Roy",
+      priority: priorityFilter,
     };
+    dispatch(addTask(formdata));
+    setTitle("");
+    setDesc("");
+    setStartDate(new Date());
+    setEndDate(new Date());
+    setStatusFilter("All");
+    setPriorityFilter("All");
+  };
+
   return (
     <View className="w-[80%] mx-auto">
       <View className="mt-10">
@@ -36,6 +62,8 @@ const addTasks = () => {
             <TextInput
               className="py-[10px] px-5 bg-gray-300 rounded-xl"
               placeholder="Task Title"
+              onChangeText={setTitle}
+              value={title}
             />
           </View>
           <View className="flex gap-2  justify-center">
@@ -43,6 +71,8 @@ const addTasks = () => {
             <TextInput
               className="py-[10px] px-5 bg-gray-300 rounded-xl"
               placeholder="Description"
+              onChangeText={setDesc}
+              value={desc}
             />
           </View>
           <View className="flex gap-2  justify-center">
@@ -113,7 +143,10 @@ const addTasks = () => {
             </View>
           </View>
           <View className="flex gap-2  justify-center">
-            <TouchableOpacity className="bg-blue-500 rounded-xl py-[10px] px-5">
+            <TouchableOpacity
+              onPress={submitForm}
+              className="bg-blue-500 rounded-xl py-[10px] px-5"
+            >
               <Text className="text-center text-white uppercase">Add</Text>
             </TouchableOpacity>
           </View>
