@@ -11,8 +11,8 @@ import { FontAwesome } from "@expo/vector-icons";
 
 export default function index() {
   const tasks = useSelector(selectAllTasks);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date(1888, 0, 1));
+  const [endDate, setEndDate] = useState(new Date(2100, 0, 1));
   const [show, setShow] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [mode, setMode] = useState("date");
@@ -36,22 +36,22 @@ export default function index() {
     setShow(false);
   };
 
-  const filteredTasks = tasks.filter((task) => {
-    const taskDate = new Date(task.startDate);
-    const isDateInRange =
-      (!startDate || taskDate >= startDate) &&
-      (!endDate || taskDate <= endDate);
-    const isStatusMatch =
-      statusFilter === "All" || task.status === statusFilter;
-    const isPriorityMatch =
-      priorityFilter === "All" || task.priority === priorityFilter;
-    return isDateInRange && isStatusMatch && isPriorityMatch;
-  });
+const filteredTasks = tasks.filter((task) => {
+  const taskDate = new Date(task.startDate);
+  const isDateInRange =
+    (!startDate || taskDate >= startDate) &&
+    (!endDate || taskDate <= endDate || (!startDate && !endDate)); // Add condition for all dates if startDate and endDate are null
+  const isStatusMatch = statusFilter === "All" || task.status === statusFilter;
+  const isPriorityMatch =
+    priorityFilter === "All" || task.priority === priorityFilter;
+  return isDateInRange && isStatusMatch && isPriorityMatch;
+});
+
   console.info(tasks)
   console.info(filteredTasks)
 
   return (
-    <View className="bg-gray-200">
+    <View className="bg-gray-200 min-h-full">
       <View className="w-[90%] mx-auto">
         <View className="mt-10">
           <Text className="text-3xl text-indigo-500 font-bold text-center">Task Board</Text>
@@ -147,9 +147,9 @@ export default function index() {
         </View>
 
         {tasks.length > 0 ? (
-          <View className="mt-[20px] relative right-3 w-full">
+          <View className="mt-[20px] w-[85%] mx-auto">
             <ScrollView
-              className="ml-4 "
+              className=""
               style={{
                 height: 680,
                 width: "100%",

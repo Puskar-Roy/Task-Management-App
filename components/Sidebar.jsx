@@ -23,23 +23,23 @@ const Sidebar = () => {
             <MaterialIcons name="dashboard" size={24} color="white" />
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace('/')} className='px-5'>
+          <TouchableOpacity onPress={() => router.replace('/completedTask')} className='px-5'>
             <MaterialIcons name="task-alt" size={24} color="white" />
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace('/')} className='px-5'>
+          <TouchableOpacity onPress={() => router.replace('/inProgressTask')} className='px-5'>
             <MaterialIcons name="pending-actions" size={24} color="white" />
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace('/')} className='px-5  '>
+          <TouchableOpacity onPress={() => router.replace('/pendingTask')} className='px-5  '>
             <FontAwesome6 name="bars-progress" size={24} color="white" />
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace('/')} className='px-5 '>
+          <TouchableOpacity onPress={() => router.replace('/deployedTask')} className='px-5 '>
             <MaterialCommunityIcons name="cloud-check" size={24} color="white" />
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace('/')} className='px-5 '>
+          <TouchableOpacity onPress={() => router.replace('/deferredTask')} className='px-5 '>
             <MaterialIcons name="access-time-filled" size={24} color="white" />
 
           </TouchableOpacity>
