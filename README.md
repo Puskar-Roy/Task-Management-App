@@ -33,7 +33,7 @@ Task Management Mobile App</h3>
 
 - We can add or remove Tasks.
 
-    ### Filter Tasks
+  ### Filter Tasks
 
 -  Allows users to easily filter tasks by date, status, and priority, providing a streamlined and efficient task management experience.
 
